@@ -28,15 +28,19 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    //We can choose to identify a user type with a number.
+    @Column(name = "type")
+    private Long type;
+
     // Hibernate needs a default constructor to function
     public User() {}
 
-    public User(@Email(message = "Invalid email address! Please provide a valid email address") @NotEmpty(message = "Please provide an email address") String email, @Length(min = 5, max = 100, message = "Password length most be between 5-100 characters") String password, @Length(min = 3, max = 100, message = "Name must be between 3-100 characters") String name) {
+    public User(@Email(message = "Invalid email address! Please provide a valid email address") @NotEmpty(message = "Please provide an email address") String email, @Length(min = 5, max = 100, message = "Password length most be between 5-100 characters") String password, @Length(min = 3, max = 100, message = "Name must be between 3-100 characters") String name, Long type) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.type = type;
     }
-
 
     public Long getId() {
         return id;
@@ -68,5 +72,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getType() {
+        return type;
+    }
+
+    public void setType(Long type) {
+        this.type = type;
     }
 }

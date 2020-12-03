@@ -7,7 +7,9 @@ import "../../../../css/student/islands/island-green.css";
 
 export default function Island() {
 
-    const [ assignments, setAssignments ] = useState([]);
+    const [ assignments, setAssignments ] = useState([{
+        id: 1, release_date: new Date()
+    }]); // Default assignment, avoid erros if time lag
     const fakesDates = [ // Waiting for release_dates coming directly with assignment
           new Date(2020, 10, 29, 12, 30, 45),
           new Date(2020, 10, 29, 12, 30, 45),

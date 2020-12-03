@@ -15,6 +15,7 @@ export default function CreateSpeech() {
         AssignmentApi.createAssignment(newAssignment)
             .then(() => {
                 console.log('should be in database')
+                setQuestion('');
             })
     }
 

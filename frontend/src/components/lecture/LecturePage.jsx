@@ -5,6 +5,7 @@ import LectureForm from "./LectureForm";
 
 function LecturePage() {
   const [lectures, setLectures] = useState([]);
+  const [status, setStatus] = useState(0);
 
   const createLecture = (lectureData) => {
     console.log("lectureData", lectureData);
@@ -40,18 +41,25 @@ function LecturePage() {
     getAll();
   }, []);
 
+  useEffect(() => {
+    if (lectures.length !== 0) {
+      setStatus(1);
+    }
+  }, [lectures]);
+
   return (
     <div className="body-wrapper">
       <LectureForm onCreateClick={createLecture} />
 
-      {lectures.map((lecture) => (
-        <LectureCard
-          key={lecture.id}
-          lecture={lecture}
-          onUpdateClick={updateLecture}
-          onDeleteClick={deleteLecture}
-        />
-      ))}
+      {status === 1 &&
+        lectures.map((lecture) => (
+          <LectureCard
+            key={lecture.id}
+            lecture={lecture}
+            onUpdateClick={updateLecture}
+            onDeleteClick={deleteLecture}
+          />
+        ))}
     </div>
   );
 }

@@ -94,7 +94,7 @@ function Navbar({ onLogout }) {
                     <Link to="/create-assignment">Create Assignment</Link>
                   </li>
                   <li onClick={onLogout}>
-                    <Link to="/">LOGOUT</Link>
+                    <Link>LOGOUT</Link>
                   </li>
                 </ul>
               ) : (

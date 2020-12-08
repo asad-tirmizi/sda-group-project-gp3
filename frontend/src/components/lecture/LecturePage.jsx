@@ -3,21 +3,26 @@ import Api from "../../api/Api";
 import LectureCard from "./LectureCard";
 import LectureForm from "./LectureForm";
 
-function LecturePage({ dateFromCal }) {
-  const dateFromCalDate = dateFromCal.match.params.date;
-
+function LecturePage() {
   const [lectures, setLectures] = useState([]);
 
   const createLecture = (lectureData) => {
+    console.log("lectureData", lectureData);
     let sqlLectureData = {};
     sqlLectureData.title = lectureData.title;
     sqlLectureData.body = lectureData.body;
     sqlLectureData.unlockTime =
       lectureData.unlockDate + "T" + lectureData.unlockTime + ":00.0";
+    sqlLectureData.youtubeUrl = lectureData.youtube.replace(
+      "https://www.youtube.com/watch?v=",
+      ""
+    );
 
-    sqlLectureData.youtubeUrl = lectureData.youtube
-      .match(/[v][=][A-Za-z1-9]+/g)[0]
-      .replace("v=", "");
+    sqlLectureData.youtubeUrl = sqlLectureData.youtubeUrl.replace(
+      /[&][t][=].*/g,
+      ""
+    );
+    console.log("sqlLectureData", sqlLectureData);
 
     Api.post("/lectures", sqlLectureData).then((res) =>
       setLectures([...lectures, res.data])
@@ -42,10 +47,7 @@ function LecturePage({ dateFromCal }) {
 
   return (
     <div className="body-wrapper">
-      <LectureForm
-        onCreateClick={createLecture}
-        dateFromCalDate={dateFromCalDate}
-      />
+      <LectureForm onCreateClick={createLecture} />
 
       {lectures.map((lecture) => (
         <LectureCard

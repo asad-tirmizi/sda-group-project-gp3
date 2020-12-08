@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import moment from "moment";
 
-export default function LectureForm({ onCreateClick, dateFromCalDate }) {
+export default function LectureForm({ onCreateClick }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
@@ -19,6 +18,7 @@ export default function LectureForm({ onCreateClick, dateFromCalDate }) {
   // }).format(timestamp);
 
   const handleOnChange = (e, editor) => {
+    console.log(editor.getData());
     const data = editor.getData();
     setBody(data);
   };
@@ -27,18 +27,8 @@ export default function LectureForm({ onCreateClick, dateFromCalDate }) {
   const [youtube, setYoutube] = useState("");
 
   // unlock date
-  const [unlockDate, setUnlockDate] = useState(
-    typeof dateFromCalDate === "undefined"
-      ? ""
-      : moment(dateFromCalDate).format("YYYY-MM-DD")
-  );
-  const [unlockTime, setUnlockTime] = useState(
-    typeof dateFromCalDate === "undefined"
-      ? ""
-      : moment(dateFromCalDate)
-          .format("HH")
-          .concat(":00")
-  );
+  const [unlockDate, setUnlockDate] = useState("");
+  const [unlockTime, setUnlockTime] = useState("");
 
   return (
     <div className="body-wrapper">

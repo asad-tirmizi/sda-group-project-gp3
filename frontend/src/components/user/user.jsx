@@ -6,6 +6,7 @@ import AssignmentApi from "../../api/AssignmentApi";
 import LectureApi from "../../api/LectureApi";
 import LectureStudentPage from "../lecture/LectureStudentPage";
 
+
 // Pages
 import StudentHomePage from "../student/StudentHomePage";
 import TeacherHomePage from "../teacher/TeacherHomePage";
@@ -14,6 +15,7 @@ import TeacherAssignmentPage from "../assignment/TeacherAssignmentPage";
 import StudentAssignmentPage from "../assignment/StudentAssignmentPage";
 import StudentLecture from "../student/lecture/LecturePage";
 
+
 export default function User() {
   const { path } = useRouteMatch();
   const [status, setStatus] = useState(0);
@@ -21,13 +23,14 @@ export default function User() {
   const [assignments, setAssignments] = useState([]);
   const [lectures, setLectures] = useState([]);
 
+
   useEffect(() => {
     AssignmentApi.getAllAssignments().then((res) => {
       setAssignments(res.data);
     });
     LectureApi.getAllLectures().then((res) => {
-      setLectures(res.data);
-    });
+       setLectures(res.data);
+    })
   }, []);
 
   useEffect(() => {
@@ -47,21 +50,6 @@ export default function User() {
             <Route path={path + "create-assignment"}>
               <TeacherAssignmentPage />
             </Route>
-            <Route
-              path="/create-lecture-from-cal/:date"
-              render={(dateFromCal) => (
-                <LecturePage dateFromCal={dateFromCal} />
-              )}
-            />
-
-            <Route
-              path="/assignment/:id"
-              render={(match) => <StudentAssignmentPage match={match} />}
-            />
-            <Route
-              path="/lecture/:id"
-              render={(match) => <StudentLecture match={match} />}
-            />
             <Route path={path}>
               <TeacherHomePage />
             </Route>
@@ -69,7 +57,7 @@ export default function User() {
         ) : (
           <Switch>
             <Route path={path + "see-lecture"}>
-              <LectureStudentPage />
+                <LectureStudentPage />
             </Route>
             <Route
               path="/assignment/:id"
